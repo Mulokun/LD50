@@ -1514,13 +1514,29 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8364586685256956528}
+  - component: {fileID: 6808595443558632849}
   m_Layer: 0
-  m_Name: cell
+  m_Name: character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6808595443558632849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6808595443558632848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d3487223ddb6b43a91502b13e01db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputAsset: {fileID: -944628639613478452, guid: ae8468888d641af4facb3d17c2fb4c0a, type: 3}
+  speed: 16
+  acceleration: 0.06
 --- !u!4 &8364586685256956528
 Transform:
   m_ObjectHideFlags: 0
