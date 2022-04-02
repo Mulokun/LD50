@@ -29,6 +29,7 @@ public class Monologue : MonoBehaviour
         if (actionNext == null)
         {
             actionNext = inputAsset.FindAction("Game/NextLine");
+            actionNext.canceled += NextLine;
         }
     }
 
@@ -40,13 +41,11 @@ public class Monologue : MonoBehaviour
 
     private void OnEnable()
     {
-        actionNext.canceled += NextLine;
         actionNext.Enable();
     }
 
     private void OnDisable()
     {
-        actionNext.canceled -= NextLine;
         actionNext.Disable();
     }
 

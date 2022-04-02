@@ -21,17 +21,30 @@ public class Typing : MonoBehaviour
 
     private void Awake()
     {
-        actionTyping = inputAsset.FindAction("Game/TypeChar");
-        actionTyping.performed += TypeCharacter;
-        actionTyping.Enable();
-        actionEnter = inputAsset.FindAction("Game/TypeValidate");
-        actionEnter.started += ValidateLine;
-        actionEnter.Disable();
+        if (actionTyping == null)
+        {
+            actionTyping = inputAsset.FindAction("Game/TypeChar");
+            actionTyping.performed += TypeCharacter;
+        }
+        if (actionEnter == null)
+        {
+            actionEnter = inputAsset.FindAction("Game/TypeValidate");
+            actionEnter.started += ValidateLine;
+        }
+    }
 
+    public void Initialize(LinesData l)
+    {
         enterObject.SetActive(false);
 
         lines.Reset();
         SetNewLine();
+    }
+
+    private void OnEnable()
+    {
+        actionTyping.Enable();
+        actionEnter.Disable();
     }
 
     private void OnDisable()

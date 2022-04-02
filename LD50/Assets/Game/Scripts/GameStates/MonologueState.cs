@@ -7,8 +7,8 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(fileName = "new_state_monologue", menuName = "Game State/New State : Monologue", order = 0)]
 public class MonologueState : GameState
 {
-    public GameState nextState;
-    public LinesData monologueLines;
+    public GameState NextState;
+    public LinesData MonologueLines;
 
     private GameContext context;
 
@@ -16,9 +16,8 @@ public class MonologueState : GameState
     {
         context = c;
 
-        context.Monologue.Initialize(monologueLines);
+        context.Monologue.Initialize(MonologueLines);
         context.Monologue.gameObject.SetActive(true);
-
         // Debug.Log("add");
         context.Monologue.OnCompleteTrigger += EndofState;
 
@@ -36,7 +35,7 @@ public class MonologueState : GameState
     {
         // Debug.Log("rem");
         context.Monologue.OnCompleteTrigger -= EndofState;
-        context.GameFlow.SwitchState(this, nextState);
+        context.GameFlow.SwitchState(this, NextState);
     }
 
     public override IEnumerator Coroutine_Exit()

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a062705e028e7d443a8d2be4fcf923d5, type: 3}
-  m_Name: state_monologue_01
+  m_Script: {fileID: 11500000, guid: 542a2207f26faa843b95080baac48b34, type: 3}
+  m_Name: state_typing_01
   m_EditorClassIdentifier: 
-  NextState: {fileID: 11400000, guid: 4c9373342e4a32845abad658698c17c2, type: 2}
-  MonologueLines: {fileID: 11400000, guid: 2de44ff368b6e2f4084bd43f1614118a, type: 2}
+  NextState: {fileID: 11400000, guid: 9628cfee6cbf08a45bc7a305306e13e9, type: 2}
+  TypingLines: {fileID: 11400000, guid: 33fdbc08589cd2a42addb5aafeae200f, type: 2}
