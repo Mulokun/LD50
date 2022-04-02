@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Sirenix.OdinInspector;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -18,8 +19,12 @@ public class CharacterMovement : MonoBehaviour
     }
 
     [SerializeField] private InputActionAsset inputAsset;
-    [SerializeField, Range(3, 20)] private float speed;
-    [SerializeField, Range(0.001f, 0.1f)] private float acceleration;
+    [Title("Movement Data")]
+    [SerializeField] private Rigidbody currentRigidbody;
+    [SerializeField, Range(3, 30)] private float speed;
+    [SerializeField, Range(0.01f, 0.5f)] private float acceleration;
+
+    private MeshRenderer mesh;
 
     private InputAction actionUp;
     private InputAction actionDown;
@@ -29,9 +34,12 @@ public class CharacterMovement : MonoBehaviour
     private Direction currentInput = 0;
     private Vector2 requestedMovement = Vector2.zero;
     private Vector3 currentMovement = Vector3.zero;
+    private Vector3 oldPosition = Vector3.zero;
 
     private void Awake()
     {
+        mesh = GetComponentInChildren<MeshRenderer>();
+
         actionUp = inputAsset.FindAction("Character/Up");
         actionUp.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Up, true);
         actionUp.canceled += (InputAction.CallbackContext _) => RequestMovement(Direction.Up, false);
@@ -53,11 +61,25 @@ public class CharacterMovement : MonoBehaviour
         actionRight.Enable();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector3 movement = Vector3.Normalize(new Vector3(requestedMovement.x, 0, requestedMovement.y)) * speed * Time.deltaTime;
+        currentMovement = transform.position - oldPosition;
         currentMovement = Vector3.Lerp(currentMovement, movement, acceleration);
-        transform.position += currentMovement;
+
+        oldPosition = transform.position;
+        currentRigidbody.position = (transform.position + currentMovement);
+    }
+
+    private void Update()
+    {
+        if (requestedMovement != Vector2.zero)
+        {
+            Quaternion q = Quaternion.identity;
+            q.SetLookRotation(new Vector3(requestedMovement.x, 0, requestedMovement.y));
+            q = Quaternion.Lerp(mesh.transform.rotation, q, 0.04f);
+            mesh.transform.rotation = q;
+        }
     }
 
     private void RequestMovement(Direction direction, bool active)
