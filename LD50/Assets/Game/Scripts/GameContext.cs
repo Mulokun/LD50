@@ -7,6 +7,12 @@ using DG.Tweening;
 [DefaultExecutionOrder(-1)]
 public class GameContext : MonoBehaviour
 {
+    [SerializeField] private Camera mainCamera;
+    public Camera MainCamera => mainCamera;
+
+    [SerializeField] private GameFlow gameFlow;
+    public GameFlow GameFlow => gameFlow;
+
     [SerializeField] private Monologue monologue;
     public Monologue Monologue => monologue;
 
@@ -16,8 +22,11 @@ public class GameContext : MonoBehaviour
     [SerializeField] private QuitController quitController;
     public QuitController QuitController => quitController;
 
+    [SerializeField] private CharacterMovement characterMovement;
+    public CharacterMovement CharacterMovement => characterMovement;
+
     private void Awake()
     {
-        DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(1000, 10);
+        DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(1600, 10);
     }
 }

@@ -9,10 +9,10 @@ using Sirenix.OdinInspector;
 public class Monologue : MonoBehaviour
 {
     [SerializeField] private InputActionAsset inputAsset;
-    private InputAction actionNext;
+    private InputAction actionNext = null;
 
     [SerializeField] private TMP_Text monologueLine;
-    [SerializeField] private LinesData lines;
+    private LinesData lines;
 
     [Title("Sounds")]
     [SerializeField] private SyllableSoundData syllableSound;
@@ -24,18 +24,29 @@ public class Monologue : MonoBehaviour
     public delegate void OnCompleteTypingEvent();
     public event OnCompleteTypingEvent OnCompleteTrigger;
 
-    private void Awake()
+    public void Awake()
     {
-        actionNext = inputAsset.FindAction("Game/NextLine");
+        if (actionNext == null)
+        {
+            actionNext = inputAsset.FindAction("Game/NextLine");
+        }
+    }
+
+    public void Initialize(LinesData l)
+    {
+        lines = l;
+        lines.Reset();
+    }
+
+    private void OnEnable()
+    {
         actionNext.canceled += NextLine;
         actionNext.Enable();
-
-        lines.Reset();
-        NextLine();
     }
 
     private void OnDisable()
     {
+        actionNext.canceled -= NextLine;
         actionNext.Disable();
     }
 
@@ -44,38 +55,31 @@ public class Monologue : MonoBehaviour
         NextLine();
     }
 
-    private void NextLine()
+    public void NextLine()
     {
-        if(currentCharacterSequence != null && currentCharacterSequence.IsActive() && currentCharacterSequence.IsPlaying())
+        if(displayCharacterTween != null && displayCharacterTween.IsActive() && displayCharacterTween.IsPlaying())
         {
             audioSource.mute = true;
-            currentCharacterSequence.Complete();
+            displayCharacterTween.Kill(true);
+            if (currentCharacterSequence != null && currentCharacterSequence.IsActive() && currentCharacterSequence.IsPlaying())
+            {
+                currentCharacterSequence.Kill();
+            }
             audioSource.mute = false;
         }
         else if (lines.TryGetNextLine(out string line))
         {
             monologueLine.text = line;
-            // monologueLine.maxVisibleCharacters = 0;
-            // displayCharacterTween = monologueLine.DOMaxVisibleCharacters(line.Length, 0.1f * line.Length).From(0);
+            monologueLine.maxVisibleCharacters = 0;
+
+            int lettersPerSound = 3;
+            float SecondsPerLetter = 0.03f;
+            displayCharacterTween = monologueLine.DOMaxVisibleCharacters(line.Length, SecondsPerLetter * line.Length).From(0);
 
             currentCharacterSequence = DOTween.Sequence();
-            DOTweenTMPAnimator animator = new DOTweenTMPAnimator(monologueLine);
-            for (int i = 0; i < animator.textInfo.characterCount; ++i)
+            for (int i = 0; i < line.Length / lettersPerSound; i++)
             {
-                if (!animator.textInfo.characterInfo[i].isVisible)
-                {
-                    continue;
-                }
-
-                if (i % 2 == 0)
-                {
-                    currentCharacterSequence.AppendCallback(() => audioSource.PlayOneShot(syllableSound.GetRandom()));
-                    currentCharacterSequence.Join(animator.DOFadeChar(i, 1, 0.03f).From(0));
-                }
-                else
-                {
-                    currentCharacterSequence.Append(animator.DOFadeChar(i, 1, 0.03f).From(0));
-                }
+                currentCharacterSequence.InsertCallback(i * SecondsPerLetter * lettersPerSound,() => audioSource.PlayOneShot(syllableSound.GetRandom()));
             }
             currentCharacterSequence.Play();
         }
@@ -83,7 +87,6 @@ public class Monologue : MonoBehaviour
         {
             monologueLine.text = string.Empty;
             OnCompleteTrigger?.Invoke();
-            gameObject.SetActive(false);
         }
     }
 }

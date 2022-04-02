@@ -7,6 +7,10 @@ using UnityEngine.InputSystem;
 public class QuitController : MonoBehaviour
 {
     private int quitCounter = 0;
+    public bool IsQuittingAllowed { get; set; } = false;
+
+    public delegate void OnQuitAttemptEvent();
+    public event OnQuitAttemptEvent OnQuitAttemptTrigger;
 
     private void Awake()
     {
@@ -24,10 +28,18 @@ public class QuitController : MonoBehaviour
     private bool CanQuit()
     {
         quitCounter++;
-        return quitCounter >= 5;
+        if (IsQuittingAllowed || quitCounter >= 5)
+        {
+            return true;
+        }
+        else
+        {
+            OnQuitAttemptTrigger?.Invoke();
+            return false;
+        }
     }
 
-    private void Quit()
+    public void Quit()
     {
 #if UNITY_EDITOR
         if (CanQuit())
