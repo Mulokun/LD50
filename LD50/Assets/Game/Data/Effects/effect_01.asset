@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2a018245246bc438a3c0c653e97a6f, type: 3}
   m_Name: effect_01
   m_EditorClassIdentifier: 
-  Radius: 1
+  Radius: 3.08
   Colors:
     serializedVersion: 2
-    key0: {r: 0.52725744, g: 0.31510323, b: 0.6886792, a: 1}
-    key1: {r: 0.31573212, g: 0.18600924, b: 0.41509432, a: 1}
-    key2: {r: 0.6037736, g: 0.19651122, b: 0.56414944, a: 0}
+    key0: {r: 0.29411766, g: 0.19607843, b: 0.4117647, a: 1}
+    key1: {r: 0.3137255, g: 0.15686275, b: 0.39215687, a: 1}
+    key2: {r: 0.33333334, g: 0.15686275, b: 0.42745098, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
@@ -42,3 +42,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+  Scale: {x: 1.930675, y: 2.734179}
+  VariationSpeed: {x: 0.05, y: 0.26431042}
+  PersistantDuration: 1.87
+  SpeedMovement: 9.25

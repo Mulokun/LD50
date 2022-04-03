@@ -95,7 +95,7 @@ public class CharacterMovement : MonoBehaviour
         {
             Quaternion q = Quaternion.identity;
             q.SetLookRotation(new Vector3(requestedMovement.x, 0, requestedMovement.y));
-            q = Quaternion.Lerp(mesh.transform.rotation, q, 0.04f);
+            q = Quaternion.Lerp(mesh.transform.rotation, q, 0.09f);
             mesh.transform.rotation = q;
         }
     }

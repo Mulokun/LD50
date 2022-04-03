@@ -6,8 +6,11 @@ using TMPro;
 public class GameSystem : MonoBehaviour
 {
     [SerializeField] private World world;
+    public World World => world;
+
     [SerializeField] private CharacterMovement characterMovement;
     public CharacterMovement CharacterMovement => characterMovement;
+
     [SerializeField] private TMP_Text timerText;
 
     public void SetMovementActive(bool value)

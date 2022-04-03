@@ -4,5 +4,27 @@ using UnityEngine;
 
 public class EffectSystem : MonoBehaviour
 {
+    [SerializeField] private GameSystem gameSystem;
+    [SerializeField] private EffectData effectTest;
 
+    private List<EffectHandle> effectList = new List<EffectHandle>();
+
+    private void Awake()
+    {
+        CreateEffect(effectTest);
+    }
+
+    public void CreateEffect(EffectData data)
+    {
+        EffectHandle effect = new EffectHandle(data, gameSystem);
+        effectList.Add(effect);
+    }
+
+    private void Update()
+    {
+        foreach (EffectHandle e in effectList)
+        {
+            e.Update();
+        }
+    }
 }

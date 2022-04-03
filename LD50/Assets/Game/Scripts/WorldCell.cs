@@ -6,36 +6,69 @@ using DG.Tweening;
 public class WorldCell : MonoBehaviour
 {
     [SerializeField] private MeshRenderer mesh;
-    private Tween tweenScale;
-    private Tween tweenColor;
 
     private List<EffectHandle> effectList = new List<EffectHandle>();
     private EffectHandle currentEffect = null;
     public bool HasEffects => effectList.Count > 0;
+
+    private Dictionary<EffectHandle, Coroutine> timedRemovingEffect = new Dictionary<EffectHandle, Coroutine>();
 
     private void Awake()
     {
         UpdateEffect();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public bool IsAffectedBy(EffectHandle e)
     {
-        if (other.TryGetComponent<EffectHandle>(out EffectHandle effect))
+        return effectList.Contains(e) && !timedRemovingEffect.ContainsKey(e);
+    }
+
+    public void AddEffect(EffectHandle e)
+    {
+        if (timedRemovingEffect.ContainsKey(e))
         {
-            effectList.Add(effect);
+            StopCoroutine(timedRemovingEffect[e]);
+            timedRemovingEffect.Remove(e);
+        }
+        else
+        {
+            effectList.Add(e);
             UpdateEffect();
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void RemoveEffect(EffectHandle e)
     {
-        if (other.TryGetComponent<EffectHandle>(out EffectHandle effect))
+        if (timedRemovingEffect.ContainsKey(e))
         {
-            if (effectList.Remove(effect))
-            {
-                UpdateEffect();
-            }
+            StopCoroutine(timedRemovingEffect[e]);
+            timedRemovingEffect.Remove(e);
         }
+
+        if (effectList.Remove(e))
+        {
+            UpdateEffect();
+        }
+    }
+
+    public void RemoveEffect(EffectHandle e, float timer)
+    {
+        if(timedRemovingEffect.ContainsKey(e))
+        {
+            StopCoroutine(timedRemovingEffect[e]);
+            timedRemovingEffect.Remove(e);
+        }
+
+        Coroutine c = StartCoroutine(Coroutine_RemoveEffect(e, timer));
+        timedRemovingEffect.Add(e, c);
+    }
+
+    private IEnumerator Coroutine_RemoveEffect(EffectHandle e, float timer)
+    {
+        yield return new WaitForSeconds(timer);
+
+        timedRemovingEffect.Remove(e);
+        RemoveEffect(e);
     }
 
     private void UpdateEffect()
@@ -44,22 +77,26 @@ public class WorldCell : MonoBehaviour
         {
             currentEffect = effectList[0];
 
-            tweenScale?.Kill();
-            tweenColor = mesh.material.DOColor(currentEffect.EffectData.Colors.Evaluate(0), 0.3f);
-            transform.DOScaleY(2f, 0.3f).OnComplete(() =>
+            mesh.material.DOKill();
+            mesh.material.DOColor(currentEffect.EffectData.Colors.Evaluate(Random.value), 0.2f);
+
+            transform.DOKill();
+            transform.DOScaleY(currentEffect.EffectData.RandomizedScale, 0.1f).OnComplete(() =>
             {
-                tweenScale = transform.DOScaleY(2f + Random.Range(0.05f, 0.2f), Random.Range(1f, 2f)).SetLoops(-1, LoopType.Yoyo);
+                transform.DOScaleY(currentEffect.EffectData.RandomizedScale, currentEffect.EffectData.RandomizedVariationSpeed).SetLoops(-1, LoopType.Yoyo);
             });
         }
         else
         {
             currentEffect = null;
 
-            tweenScale?.Kill();
-            tweenColor = mesh.material.DOColor(new Color(50f / 255f, 50f / 255f, 50f / 255f), 0.3f);
-            transform.DOScaleY(1f, 0.3f).OnComplete(() =>
+            mesh.material.DOKill();
+            mesh.material.DOColor(new Color(50f / 255f, 50f / 255f, 50f / 255f), 0.3f);
+
+            transform.DOKill();
+            transform.DOScaleY(1f, 0.1f).OnComplete(() =>
             {
-                tweenScale = transform.DOScaleY(1f + Random.Range(0.2f, 0.5f), Random.Range(0.5f, 1f)).SetLoops(-1, LoopType.Yoyo);
+                transform.DOScaleY(1f + Random.Range(0.2f, 0.5f), Random.Range(0.5f, 1f)).SetLoops(-1, LoopType.Yoyo);
             });
         }
     }

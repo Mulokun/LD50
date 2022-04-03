@@ -30,6 +30,6 @@ public class GameContext : MonoBehaviour
 
     private void Awake()
     {
-        DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(1600, 10);
+        DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(5000, 10);
     }
 }

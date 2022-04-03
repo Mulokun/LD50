@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCamera: {fileID: 0}
-  cellPrefab: {fileID: 6808595444576373815, guid: 9186c375fbe72374f873a47aebc04dcd, type: 3}
+  cellPrefab: {fileID: 6299361881063430767, guid: 9186c375fbe72374f873a47aebc04dcd, type: 3}
   worldSize: {x: 25, y: 25}
   upCollider: {fileID: 5758551442425759972}
   downCollider: {fileID: 5758551442684294423}
