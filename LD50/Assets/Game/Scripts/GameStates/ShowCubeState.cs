@@ -23,7 +23,7 @@ public class ShowCubeState : GameState
         baseOthoSize = context.MainCamera.orthographicSize;
         context.MainCamera.DOOrthoSize(ZoomValue, ZoomInDuration).SetEase(Ease.OutCirc);
 
-        rotationTween = context.CharacterMovement.transform.DOLocalRotate(context.CharacterMovement.transform.rotation.eulerAngles + Vector3.up, 0.1f).SetLoops(-1, LoopType.Incremental);
+        rotationTween = context.GameSystem.CharacterMovement.transform.DOLocalRotate(context.GameSystem.CharacterMovement.transform.rotation.eulerAngles + Vector3.up, 0.1f).SetLoops(-1, LoopType.Incremental);
 
         context.QuitController.OnQuitAttemptTrigger += EndofState;
 
@@ -44,7 +44,7 @@ public class ShowCubeState : GameState
     public override IEnumerator Coroutine_Exit()
     {
         rotationTween.Kill(false);
-        context.CharacterMovement.transform.DOLocalRotateQuaternion(Quaternion.identity, ZoomOutDuration);
+        context.GameSystem.CharacterMovement.transform.DOLocalRotateQuaternion(Quaternion.identity, ZoomOutDuration);
 
         context.MainCamera.DOOrthoSize(baseOthoSize, ZoomOutDuration).SetEase(Ease.InQuart);
 

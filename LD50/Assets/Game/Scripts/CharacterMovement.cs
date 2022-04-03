@@ -40,25 +40,46 @@ public class CharacterMovement : MonoBehaviour
     {
         mesh = GetComponentInChildren<MeshRenderer>();
 
-        actionUp = inputAsset.FindAction("Character/Up");
-        actionUp.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Up, true);
-        actionUp.canceled += (InputAction.CallbackContext _) => RequestMovement(Direction.Up, false);
+        if(actionUp == null)
+        {
+            actionUp = inputAsset.FindAction("Character/Up");
+            actionUp.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Up, true);
+            actionUp.canceled += (InputAction.CallbackContext _) => RequestMovement(Direction.Up, false);
+        }
+        if (actionDown == null)
+        {
+            actionDown = inputAsset.FindAction("Character/Down");
+            actionDown.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Down, true);
+            actionDown.canceled += (InputAction.CallbackContext _) => RequestMovement(Direction.Down, false);
+        }
+        if (actionLeft == null)
+        {
+            actionLeft = inputAsset.FindAction("Character/Left");
+            actionLeft.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Left, true);
+            actionLeft.canceled += (InputAction.CallbackContext _) => RequestMovement(Direction.Left, false);
+        }
+        if (actionRight == null)
+        {
+            actionRight = inputAsset.FindAction("Character/Right");
+            actionRight.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Right, true);
+            actionRight.canceled += (InputAction.CallbackContext _) => RequestMovement(Direction.Right, false);
+        }
+    }
+
+    private void OnEnable()
+    {
         actionUp.Enable();
-
-        actionDown = inputAsset.FindAction("Character/Down");
-        actionDown.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Down, true);
-        actionDown.canceled += (InputAction.CallbackContext _) => RequestMovement(Direction.Down, false);
         actionDown.Enable();
-
-        actionLeft = inputAsset.FindAction("Character/Left");
-        actionLeft.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Left, true);
-        actionLeft.canceled += (InputAction.CallbackContext _) => RequestMovement(Direction.Left, false);
         actionLeft.Enable();
-
-        actionRight = inputAsset.FindAction("Character/Right");
-        actionRight.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Right, true);
-        actionRight.canceled += (InputAction.CallbackContext _) => RequestMovement(Direction.Right, false);
         actionRight.Enable();
+    }
+
+    private void OnDisable()
+    {
+        actionUp.Disable();
+        actionDown.Disable();
+        actionLeft.Disable();
+        actionRight.Disable();
     }
 
     private void FixedUpdate()

@@ -17,7 +17,8 @@ public class CharacterControlState : GameState
     public override IEnumerator Coroutine_Start(GameContext c)
     {
         context = c;
-        context.CharacterMovement.enabled = true;
+        context.GameSystem.SetMovementActive(true);
+        context.GameSystem.SetTimerActive(true);
         elaspedTime = 0;
 
         yield return null;
@@ -25,6 +26,8 @@ public class CharacterControlState : GameState
 
     public override void Update()
     {
+        context.GameSystem.UpdateTimerText(Mathf.Max(0f, Duration - elaspedTime));
+
         elaspedTime += Time.deltaTime;
         if (elaspedTime > Duration)
         {
@@ -34,7 +37,8 @@ public class CharacterControlState : GameState
 
     public override IEnumerator Coroutine_Exit()
     {
-        context.CharacterMovement.enabled = false;
+        context.GameSystem.SetMovementActive(false);
+        context.GameSystem.SetTimerActive(false);
 
         yield return null;
     }

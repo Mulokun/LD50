@@ -10,6 +10,9 @@ public class GameContext : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     public Camera MainCamera => mainCamera;
 
+    [SerializeField] private GameObject loadingScreen;
+    public GameObject LoadingScreen => loadingScreen;
+
     [SerializeField] private GameFlow gameFlow;
     public GameFlow GameFlow => gameFlow;
 
@@ -22,11 +25,8 @@ public class GameContext : MonoBehaviour
     [SerializeField] private QuitController quitController;
     public QuitController QuitController => quitController;
 
-    [SerializeField] private CharacterMovement characterMovement;
-    public CharacterMovement CharacterMovement => characterMovement;
-
-    [SerializeField] private GameObject loadingScreen;
-    public GameObject LoadingScreen => loadingScreen;
+    [SerializeField] private GameSystem gameSystem;
+    public GameSystem GameSystem => gameSystem;
 
     private void Awake()
     {
