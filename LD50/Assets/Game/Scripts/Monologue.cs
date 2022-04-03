@@ -18,6 +18,8 @@ public class Monologue : MonoBehaviour
     [SerializeField] private SoundData syllableSound;
     [SerializeField] private AudioSource audioSource;
 
+    private CanvasGroup canvas;
+
     private Tween displayCharacterTween;
     private Sequence currentCharacterSequence;
 
@@ -26,6 +28,8 @@ public class Monologue : MonoBehaviour
 
     public void Awake()
     {
+        canvas = GetComponent<CanvasGroup>();
+
         if (actionNext == null)
         {
             actionNext = inputAsset.FindAction("Game/NextLine");
@@ -41,6 +45,7 @@ public class Monologue : MonoBehaviour
 
     private void OnEnable()
     {
+        canvas.DOFade(1, 0.2f).From(0);
         actionNext.Enable();
     }
 
@@ -85,7 +90,8 @@ public class Monologue : MonoBehaviour
         else
         {
             monologueLine.text = string.Empty;
-            OnCompleteTrigger?.Invoke();
+
+            canvas.DOFade(0, 0.2f).OnComplete(() => OnCompleteTrigger?.Invoke());
         }
     }
 }

@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   context: {fileID: 688245849}
-  firstGameState: {fileID: 11400000, guid: 4c9373342e4a32845abad658698c17c2, type: 2}
+  firstGameState: {fileID: 11400000, guid: fcbf5a54ab64cf5469d605b4fa2efd2c, type: 2}
 --- !u!4 &379293711
 Transform:
   m_ObjectHideFlags: 0
@@ -459,7 +459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &582314099
 RectTransform:
   m_ObjectHideFlags: 0
@@ -719,12 +719,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 331466804}
+  loadingScreen: {fileID: 1803204715}
   gameFlow: {fileID: 379293710}
   monologue: {fileID: 575676514}
   typing: {fileID: 2123526543}
   quitController: {fileID: 1740449872}
-  characterMovement: {fileID: 1043906225}
-  loadingScreen: {fileID: 1803204715}
+  gameSystem: {fileID: 1143519055}
 --- !u!4 &688245850
 Transform:
   m_ObjectHideFlags: 0
