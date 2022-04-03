@@ -84,12 +84,9 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 movement = Vector3.Normalize(new Vector3(requestedMovement.x, 0, requestedMovement.y)) * speed * Time.deltaTime;
-        currentMovement = transform.position - oldPosition;
+        Vector3 movement = Vector3.Normalize(new Vector3(requestedMovement.x, 0, requestedMovement.y)) * speed * Time.fixedDeltaTime * 60f;
         currentMovement = Vector3.Lerp(currentMovement, movement, acceleration);
-
-        oldPosition = transform.position;
-        currentRigidbody.position = (transform.position + currentMovement);
+        currentRigidbody.velocity = currentMovement;
     }
 
     private void Update()

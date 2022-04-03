@@ -27,7 +27,7 @@ public class World : MonoBehaviour
             }
         }
 
-        float larger = 5;
+        float larger = 10;
         upCollider.size = new Vector3(worldSize.x + larger, 4, larger + 1);
         upCollider.transform.localPosition = new Vector3(0, 0, -Mathf.CeilToInt(worldSize.y * 0.5f) - larger * 0.5f);
         downCollider.size = new Vector3(worldSize.x + larger, 4, larger + 1);
