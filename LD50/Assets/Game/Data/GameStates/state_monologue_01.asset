@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a062705e028e7d443a8d2be4fcf923d5, type: 3}
   m_Name: state_monologue_01
   m_EditorClassIdentifier: 
-  NextState: {fileID: 11400000, guid: 4c9373342e4a32845abad658698c17c2, type: 2}
+  NextState: {fileID: 11400000, guid: 30570cf0c26bd64459f0b016f066691d, type: 2}
   MonologueLines: {fileID: 11400000, guid: 2de44ff368b6e2f4084bd43f1614118a, type: 2}

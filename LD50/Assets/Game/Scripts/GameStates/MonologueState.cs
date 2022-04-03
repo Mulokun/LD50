@@ -17,11 +17,11 @@ public class MonologueState : GameState
         context = c;
 
         context.Monologue.Initialize(MonologueLines);
-        context.Monologue.gameObject.SetActive(true);
-        // Debug.Log("add");
         context.Monologue.OnCompleteTrigger += EndofState;
 
         yield return null;
+
+        context.Monologue.gameObject.SetActive(true);
 
         context.Monologue.NextLine();
     }
@@ -33,7 +33,6 @@ public class MonologueState : GameState
 
     private void EndofState()
     {
-        // Debug.Log("rem");
         context.Monologue.OnCompleteTrigger -= EndofState;
         context.GameFlow.SwitchState(this, NextState);
     }

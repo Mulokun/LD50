@@ -17,10 +17,11 @@ public class TypingState : GameState
         context = c;
 
         context.Typing.Initialize(TypingLines);
-        context.Typing.gameObject.SetActive(true);
         context.Typing.OnCompleteTrigger += EndofState;
 
         yield return null;
+
+        context.Typing.gameObject.SetActive(true);
     }
 
     public override void Update()

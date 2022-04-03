@@ -8,6 +8,7 @@ public class GameFlow : MonoBehaviour
 
     [SerializeField] private GameState firstGameState;
     private GameState currentGameState;
+    private bool switching = false;
 
     private void Start()
     {
@@ -16,11 +17,15 @@ public class GameFlow : MonoBehaviour
 
     private void Update()
     {
-        currentGameState?.Update();
+        if (!switching)
+        {
+            currentGameState?.Update();
+        }
     }
 
     public void SwitchState(GameState from, GameState to)
     {
+        switching = true;
         StartCoroutine(Coroutine_Switch(from, to));
     }
 
@@ -47,5 +52,7 @@ public class GameFlow : MonoBehaviour
             yield return to.Coroutine_Start(context);
             currentGameState = to;
         }
+
+        switching = false;
     }
 }

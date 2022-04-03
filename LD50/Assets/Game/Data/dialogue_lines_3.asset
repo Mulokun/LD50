@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17f95992e8ae5d34caf64030a159a202, type: 3}
-  m_Name: state_stare_cube
+  m_Script: {fileID: 11500000, guid: cc37552d091d23d4fb734d72943c4e67, type: 3}
+  m_Name: dialogue_lines_3
   m_EditorClassIdentifier: 
-  nextState: {fileID: 11400000, guid: 5bc850f31335ace4ca972cbf14e1465d, type: 2}
-  ZoomValue: 1.6
-  ZoomInDuration: 1
-  ZoomOutDuration: 1
+  Lines:
+  - Hm! We did it!
+  - Okay, now I will let you play with the cube for 10 seconds.
+  - Enjoy!

@@ -10,9 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc37552d091d23d4fb734d72943c4e67, type: 3}
-  m_Name: dialogue_lines_1
+  m_Name: dialogue_lines_4
   m_EditorClassIdentifier: 
   Lines:
-  - Hey! Are you trying to exit the game?
-  - Don't you like this cube?
-  - Take a closer look
+  - So? Did you enjoyed it?
+  - Of course you do!
+  - Thank you for your time.
+  - I know I can't keep you here forever...
+  - I leave you now.
+  - Goodbye.
+  - It's been a pleasure.

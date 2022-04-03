@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542a2207f26faa843b95080baac48b34, type: 3}
   m_Name: state_typing_01
   m_EditorClassIdentifier: 
-  NextState: {fileID: 11400000, guid: 9628cfee6cbf08a45bc7a305306e13e9, type: 2}
+  NextState: {fileID: 11400000, guid: fcbf5a54ab64cf5469d605b4fa2efd2c, type: 2}
   TypingLines: {fileID: 11400000, guid: 33fdbc08589cd2a42addb5aafeae200f, type: 2}

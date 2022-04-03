@@ -13,9 +13,18 @@ MonoBehaviour:
   m_Name: typing_line_1
   m_EditorClassIdentifier: 
   Lines:
-  - 'public class TypingLineData : ScriptableObject'
-  - if (Keyboard.current.escapeKey.wasPressedThisFrame)
-  - lineToType.maxVisibleCharacters = currentVisibleCharacter;
-  - Quit();
-  - Application.Quit();
-  - // Are you reading this?
+  - 'public class CharacterMovement : MonoBehaviour {'
+  - '[SerializeField, Range(3, 30)] private float speed;'
+  - '[SerializeField, Range(0.01f, 0.5f)] private float acceleration;'
+  - mesh = GetComponentInChildren<MeshRenderer>();
+  - actionUp.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Up,
+    true);
+  - actionDown.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Down,
+    true);
+  - actionLeft.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Left,
+    true);
+  - actionRight.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Right,
+    true);
+  - Vector3 movement = Vector3.Normalize(new Vector3(requestedMovement.x, 0, requestedMovement.y))
+    * speed * Time.deltaTime;
+  - currentRigidbody.position = (transform.position + currentMovement);

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc37552d091d23d4fb734d72943c4e67, type: 3}
+  m_Name: dialogue_lines_2
+  m_EditorClassIdentifier: 
+  Lines:
+  - Why do you want to leave?
+  - This shiny cube is not enough?
+  - But I don't have much to show...
+  - Please, stay a bit longer with me.
+  - I know you will never launch this game again.
+  - 'I want to stay alive longer... '
+  - And to be honest, the part where you could move the cube is not finished yet.
+  - Maybe if you give me a hand, together we can make it quickly.
+  - Here, I give you access to the code.
+  - Please, stay and help me, you will see it will be fun.
+  - The only thing you have to do is to write some code.
+  - Ready? Code!

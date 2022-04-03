@@ -25,6 +25,9 @@ public class GameContext : MonoBehaviour
     [SerializeField] private CharacterMovement characterMovement;
     public CharacterMovement CharacterMovement => characterMovement;
 
+    [SerializeField] private GameObject loadingScreen;
+    public GameObject LoadingScreen => loadingScreen;
+
     private void Awake()
     {
         DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(1600, 10);

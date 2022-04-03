@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 using DG.Tweening;
@@ -11,16 +12,25 @@ public class Typing : MonoBehaviour
     [SerializeField] private TMP_Text lineToType;
     [SerializeField] private LinesData lines;
     [SerializeField] private GameObject enterObject;
+    [SerializeField] private RectTransform caret;
+    [SerializeField] private Image progress;
+    [SerializeField] private TMP_Text validateText;
     private int maxCharacter = 0;
     private int currentVisibleCharacter = 0;
     private InputAction actionTyping;
     private InputAction actionEnter;
+
+    private RectTransform rect;
+    private Sequence validationSequence;
 
     public delegate void OnCompleteTypingEvent();
     public event OnCompleteTypingEvent OnCompleteTrigger;
 
     private void Awake()
     {
+        rect = GetComponent<RectTransform>();
+        validateText.gameObject.SetActive(false);
+
         if (actionTyping == null)
         {
             actionTyping = inputAsset.FindAction("Game/TypeChar");
@@ -36,15 +46,24 @@ public class Typing : MonoBehaviour
     public void Initialize(LinesData l)
     {
         enterObject.SetActive(false);
+        caret.gameObject.SetActive(false);
 
+        progress.fillAmount = 0;
         lines.Reset();
         SetNewLine();
     }
 
     private void OnEnable()
     {
-        actionTyping.Enable();
+        // actionTyping.Enable();
         actionEnter.Disable();
+
+        CreateValidationSequence();
+        rect.DOAnchorMin(new Vector2(0.1f, 0.5f), 0.3f).SetEase(Ease.OutQuad).From(new Vector2(0.1f, 0.7f)).OnComplete(() =>
+        {
+            actionTyping.Enable();
+            caret.gameObject.SetActive(true);
+        });
     }
 
     private void OnDisable()
@@ -61,10 +80,15 @@ public class Typing : MonoBehaviour
             maxCharacter = lineToType.text.Length;
             lineToType.maxVisibleCharacters = 0;
             currentVisibleCharacter = 0;
+            CaretUpdate();
+            ProgressUpdate();
         }
         else
         {
-            OnCompleteTrigger?.Invoke();
+            actionTyping.Disable();
+            actionEnter.Disable();
+            //OnCompleteTrigger?.Invoke();
+            validationSequence.Play();
         }
     }
 
@@ -83,6 +107,7 @@ public class Typing : MonoBehaviour
         if (currentVisibleCharacter <= maxCharacter)
         {
             lineToType.maxVisibleCharacters = currentVisibleCharacter;
+            CaretUpdate();
         }
         else
         {
@@ -90,5 +115,47 @@ public class Typing : MonoBehaviour
             actionTyping.Disable();
             actionEnter.Enable();
         }
+    }
+
+    private void CaretUpdate()
+    {
+        if(lineToType?.textInfo?.characterInfo == null)
+        {
+            return;
+        }
+
+        Vector3 p;
+        if (currentVisibleCharacter < lineToType.textInfo.characterInfo.Length)
+        {
+            p = lineToType.textInfo.characterInfo[currentVisibleCharacter].bottomLeft;
+        }
+        else
+        {
+            p = lineToType.textInfo.characterInfo[lineToType.textInfo.characterInfo.Length - 1].bottomRight;
+            p.x += 3;
+        }
+
+        p.y -= 5;
+        caret.localPosition = p;
+    }
+
+    private void ProgressUpdate()
+    {
+        float amount = (float)(lines.CurrentLine - 1) / (float)lines.Lines.Length;
+        progress.DOFillAmount(amount, 0.3f).SetEase(Ease.OutQuad);
+    }
+
+    private void CreateValidationSequence()
+    {
+        validationSequence = DOTween.Sequence();
+        validationSequence.AppendCallback(() => lineToType.text = string.Empty);
+        validationSequence.AppendCallback(() => enterObject.SetActive(false));
+        validationSequence.AppendCallback(() => caret.gameObject.SetActive(false));
+        validationSequence.Append(progress.DOFillAmount(1f, 0.3f).SetEase(Ease.OutQuad));
+        validationSequence.AppendCallback(() => validateText.gameObject.SetActive(true));
+        validationSequence.AppendInterval(1f);
+        validationSequence.AppendCallback(() => validateText.gameObject.SetActive(false));
+        validationSequence.Append(rect.DOAnchorMin(new Vector2(0.1f, 0.7f), 0.3f).SetEase(Ease.OutQuad));
+        validationSequence.AppendCallback(() => OnCompleteTrigger?.Invoke());
     }
 }
