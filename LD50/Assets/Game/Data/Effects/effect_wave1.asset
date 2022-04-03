@@ -9,23 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd2a018245246bc438a3c0c653e97a6f, type: 3}
-  m_Name: effect_01
+  m_Script: {fileID: 11500000, guid: f99c14e4f1be483499d603f58225a687, type: 3}
+  m_Name: effect_wave1
   m_EditorClassIdentifier: 
-  Radius: 2.54
+  Radius: 7.61
   Colors:
     serializedVersion: 2
-    key0: {r: 0.29411766, g: 0.19607843, b: 0.4117647, a: 1}
-    key1: {r: 0.3137255, g: 0.15686275, b: 0.39215687, a: 1}
-    key2: {r: 0.33333334, g: 0.15686275, b: 0.42745098, a: 0}
+    key0: {r: 0.15641688, g: 0.66760516, b: 0.8962264, a: 1}
+    key1: {r: 0.21266466, g: 0.4761954, b: 0.764151, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 32189
-    ctime2: 65535
+    ctime1: 65535
+    ctime2: 0
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -40,10 +40,10 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 3
+    m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  Scale: {x: 1.930675, y: 2.734179}
-  VariationSpeed: {x: 0.05, y: 0.26431042}
-  PersistantDuration: 1.87
-  DurationBeforeKill: 8
-  SpeedMovement: 9.25
+  Scale: {x: 1.5017369, y: 3}
+  VariationSpeed: {x: 2.3851383, y: 3}
+  PersistantDuration: 0.3
+  DurationBeforeKill: 10
+  SpeedMovement: 4.63

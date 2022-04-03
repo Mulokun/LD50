@@ -10,9 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86bf02635919a4946bab6c34a3dc6946, type: 3}
-  m_Name: state_loading
+  m_Name: state_loading1
   m_EditorClassIdentifier: 
-  NextState: {fileID: 11400000, guid: b861d0123b6d5664c8ff17a3332edd1a, type: 2}
-  text: Game loading
-  LoadingDuration: 1
-  KeyToSkip: 0
+  NextState: {fileID: 11400000, guid: 9628cfee6cbf08a45bc7a305306e13e9, type: 2}
+  text: 'Created by
+
+    <size=70>Kevin "Mulokun" Chambonnet</size>
+
+
+    <size=32>Thank
+    you for playing</size>'
+  LoadingDuration: 5
+  KeyToSkip: 1

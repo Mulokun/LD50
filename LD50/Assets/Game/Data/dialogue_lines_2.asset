@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc37552d091d23d4fb734d72943c4e67, type: 3}
   m_Name: dialogue_lines_2
   m_EditorClassIdentifier: 
+  LineInfos: []
   Lines:
   - Why do you want to leave?
   - This shiny cube is not enough?
   - But I don't have much to show...
   - Please, stay a bit longer with me.
   - I know you will never launch this game again.
-  - 'I want to stay alive longer... '
+  - 'I want to stay alive a bit longer... '
   - And to be honest, the part where you could move the cube is not finished yet.
   - Maybe if you give me a hand, together we can make it quickly.
   - Here, I give you access to the code.
-  - Please, stay and help me, you will see it will be fun.
+  - Please, stay and help me, you will see, [s]it will be fun.[/s]
   - The only thing you have to do is to write some code.
-  - Ready? Code!
+  - Ready? [s]Code![/s]

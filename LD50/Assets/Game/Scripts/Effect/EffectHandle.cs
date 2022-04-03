@@ -10,9 +10,6 @@ public class EffectHandle
 
     private Vector2 position;
 
-    private float killedTimer = 0;
-    public bool IsKilled => killedTimer != 0 && Time.time > killedTimer;
-
     public EffectHandle(EffectData data, GameSystem gs)
     {
         EffectData = data;
@@ -23,16 +20,7 @@ public class EffectHandle
 
     private void Spawn()
     {
-        if(EffectData.DurationBeforeKill != 0)
-        {
-            killedTimer = Time.time + EffectData.DurationBeforeKill;
-        }
-        else
-        {
-            killedTimer = 0;
-        }
-
-        position = Vector2.one;
+        position = EffectData.SpawnPosition(world);
     }
 
     private void Despawn()
@@ -46,7 +34,7 @@ public class EffectHandle
 
     public void Update()
     {
-        if(IsKilled)
+        if(EffectData.IsKilled)
         {
             Despawn();
             return;

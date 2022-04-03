@@ -28,7 +28,7 @@ public class QuitController : MonoBehaviour
     private bool CanQuit()
     {
         quitCounter++;
-        if (IsQuittingAllowed || quitCounter >= 5)
+        if (IsQuittingAllowed || quitCounter >= 10)
         {
             return true;
         }

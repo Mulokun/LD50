@@ -25,7 +25,7 @@ public class EffectSystem : MonoBehaviour
         int i = 0;
         while (i < effectList.Count)
         {
-            if (effectList[i].IsKilled)
+            if (effectList[i].EffectData.IsKilled)
             {
                 effectList.RemoveAt(i);
                 continue;

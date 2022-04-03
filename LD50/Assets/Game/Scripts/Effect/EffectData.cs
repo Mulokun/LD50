@@ -17,12 +17,15 @@ public class EffectData : ScriptableObject
     [Range(0, 120)] public float DurationBeforeKill;
     [Range(0, 10)] public float SpeedMovement;
 
-    public bool IsTrigger(Vector2 effectPosition, Vector2 cellPosition)
+    protected float killedTimer = 0;
+    public virtual bool IsKilled => killedTimer != 0 && Time.time > killedTimer;
+
+    public virtual bool IsTrigger(Vector2 effectPosition, Vector2 cellPosition)
     {
         return (Vector2.Distance(effectPosition, cellPosition) <= Radius);
     }
 
-    public Vector2 UpdatePosition(Vector2 currentPosition, GameSystem gameSystem)
+    public virtual Vector2 UpdatePosition(Vector2 currentPosition, GameSystem gameSystem)
     {
         Vector2 cpos = new Vector2(gameSystem.CharacterMovement.transform.position.x, gameSystem.CharacterMovement.transform.position.z);
 
@@ -30,5 +33,19 @@ public class EffectData : ScriptableObject
         direction.Normalize();
         direction *= SpeedMovement * Time.deltaTime;
         return currentPosition + direction;
+    }
+
+    public virtual Vector2 SpawnPosition(World w)
+    {
+        if (DurationBeforeKill != 0)
+        {
+            killedTimer = Time.time + DurationBeforeKill;
+        }
+        else
+        {
+            killedTimer = 0;
+        }
+
+        return Vector2.zero;
     }
 }

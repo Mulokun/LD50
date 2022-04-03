@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc37552d091d23d4fb734d72943c4e67, type: 3}
   m_Name: dialogue_lines_1
   m_EditorClassIdentifier: 
+  LineInfos:
+  - Number: 0
+    Line: 
+    Sound: {fileID: 0}
+    Staging: 0
   Lines:
-  - Hey! Are you trying to exit the game?
+  - <size=70>Hey!</size> Are you trying to [s]exit the game[/s]?
   - Don't you like this cube?
-  - Take a closer look
+  - Take a closer look.

@@ -19,6 +19,11 @@ public class CharacterControlState : GameState
     public override IEnumerator Coroutine_Start(GameContext c)
     {
         context = c;
+
+        float ratio = Mathf.Abs(context.MainCamera.orthographicSize - context.GameSystem.World.OrthographicSize) / context.GameSystem.World.OrthographicSize;
+        context.MainCamera.DOOrthoSize(context.GameSystem.World.OrthographicSize, 0.3f * ratio).SetEase(Ease.InQuart);
+        yield return new WaitForSeconds(0.3f * ratio);
+
         context.GameSystem.SetMovementActive(true);
         context.GameSystem.SetTimerActive(true);
         elaspedTime = 0;

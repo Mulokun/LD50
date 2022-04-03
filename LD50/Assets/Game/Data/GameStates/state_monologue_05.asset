@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc37552d091d23d4fb734d72943c4e67, type: 3}
-  m_Name: dialogue_lines_3
+  m_Script: {fileID: 11500000, guid: a062705e028e7d443a8d2be4fcf923d5, type: 3}
+  m_Name: state_monologue_05
   m_EditorClassIdentifier: 
-  LineInfos: []
-  Lines:
-  - Hm! We did it!
-  - Okay, now I will let you play with the cube for 10 seconds.
-  - '[s]Enjoy![/s]'
+  NextState: {fileID: 11400000, guid: ff52d463af6210c4ca41ee807c9eefd0, type: 2}
+  MonologueLines: {fileID: 11400000, guid: 2700635c547db24468935cc78d6dbac6, type: 2}

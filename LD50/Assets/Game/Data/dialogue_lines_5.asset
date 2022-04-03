@@ -10,10 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc37552d091d23d4fb734d72943c4e67, type: 3}
-  m_Name: dialogue_lines_3
+  m_Name: dialogue_lines_5
   m_EditorClassIdentifier: 
   LineInfos: []
   Lines:
-  - Hm! We did it!
-  - Okay, now I will let you play with the cube for 10 seconds.
-  - '[s]Enjoy![/s]'
+  - It was great, uh?
+  - I know collisions against walls are not perfect.
+  - But I have a better idea!
+  - Would you help me again? [s]PLEASE!!![/s]
+  - I don't allow you to quit my game until you help me.
+  - Don't worry, I have a [s]very funny feature[/s] for you, and I swear to let you
+    go after that.

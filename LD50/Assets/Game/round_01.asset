@@ -14,5 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Duration: 30
   Spawner:
+  - Time: 2
+    Effect: {fileID: 11400000, guid: 2a2244985e49fec42baa238c5a457d48, type: 2}
+  - Time: 5
+    Effect: {fileID: 11400000, guid: 2c552d63593f36b49a94b16da5f6fb32, type: 2}
+  - Time: 8
+    Effect: {fileID: 11400000, guid: 385ed55092b2efa4c8a43caedb90760d, type: 2}
   - Time: 10
+    Effect: {fileID: 11400000, guid: 57d510e6d968bc642a0d27fac223aa0c, type: 2}
+  - Time: 12
+    Effect: {fileID: 11400000, guid: 130ea432ea9c94245905c09a639ba95e, type: 2}
+  - Time: 14
+    Effect: {fileID: 11400000, guid: 46ac31be684c7eb45b88b32f56a362d6, type: 2}
+  - Time: 16
+    Effect: {fileID: 11400000, guid: 8d5ddb215e554534cbc7d9245b713ad6, type: 2}
+  - Time: 18
+    Effect: {fileID: 11400000, guid: cebafa73b17c89541bc1b025ba158907, type: 2}
+  - Time: 15
     Effect: {fileID: 11400000, guid: 4a8d86c8b2a3246419d5aa495eff77c7, type: 2}

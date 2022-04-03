@@ -8,6 +8,12 @@ using Sirenix.OdinInspector;
 
 public class Monologue : MonoBehaviour
 {
+    [System.Flags]
+    public enum StagingEffect
+    {
+        CameraShaking
+    }
+
     [SerializeField] private InputActionAsset inputAsset;
     private InputAction actionNext = null;
 
@@ -22,6 +28,8 @@ public class Monologue : MonoBehaviour
 
     private Tween displayCharacterTween;
     private Sequence currentCharacterSequence;
+    private DOTweenTMPAnimator animator = null;
+    private List<Tween> characterTweenList = new List<Tween>();
 
     public delegate void OnCompleteTypingEvent();
     public event OnCompleteTypingEvent OnCompleteTrigger;
@@ -61,37 +69,102 @@ public class Monologue : MonoBehaviour
 
     public void NextLine()
     {
-        if(displayCharacterTween != null && displayCharacterTween.IsActive() && displayCharacterTween.IsPlaying())
+        if(currentCharacterSequence != null && currentCharacterSequence.IsActive() && currentCharacterSequence.IsPlaying())
         {
-            audioSource.mute = true;
-            displayCharacterTween.Kill(true);
-            if (currentCharacterSequence != null && currentCharacterSequence.IsActive() && currentCharacterSequence.IsPlaying())
-            {
-                currentCharacterSequence.Kill();
-            }
-            audioSource.mute = false;
+            currentCharacterSequence.Kill(true);
+            currentCharacterSequence = null;
         }
         else if (lines.TryGetNextLine(out string line))
         {
-            monologueLine.text = line;
-            monologueLine.maxVisibleCharacters = 0;
+            SetAnimatedLineEffect(line);
 
             int lettersPerSound = 3;
             float SecondsPerLetter = 0.03f;
-            displayCharacterTween = monologueLine.DOMaxVisibleCharacters(line.Length, SecondsPerLetter * line.Length).From(0);
 
-            currentCharacterSequence = DOTween.Sequence();
-            for (int i = 0; i < line.Length / lettersPerSound; i++)
+            if (currentCharacterSequence?.IsActive() ?? false)
             {
-                currentCharacterSequence.InsertCallback(i * SecondsPerLetter * lettersPerSound,() => audioSource.PlayOneShot(syllableSound.GetRandom()));
+                currentCharacterSequence.Kill();
+            }
+            currentCharacterSequence = DOTween.Sequence();
+            for (int i = 0; i < animator.textInfo.characterCount; i++)
+            {
+                if (animator.textInfo.characterInfo[i].isVisible)
+                {
+                    currentCharacterSequence.Join(animator.DOFadeChar(i, 1f, SecondsPerLetter).From(0f));
+                }
+
+                if (i % lettersPerSound == 0)
+                {
+                    currentCharacterSequence.InsertCallback(i * SecondsPerLetter, () => audioSource.PlayOneShot(syllableSound.GetRandom()));
+                }
             }
             currentCharacterSequence.Play();
         }
         else
         {
+            if (animator != null)
+            {
+                foreach (Tween t in characterTweenList)
+                {
+                    t.Kill();
+                }
+                characterTweenList.Clear();
+                animator.Dispose();
+                animator = null;
+            }
             monologueLine.text = string.Empty;
 
             canvas.DOFade(0, 0.2f).OnComplete(() => OnCompleteTrigger?.Invoke());
+        }
+    }
+
+    public void SetAnimatedLineEffect(string line)
+    {
+        if(animator != null)
+        {
+            foreach(Tween t in characterTweenList)
+            {
+                t.Kill();
+            }
+            characterTweenList.Clear();
+            animator.Dispose();
+            animator = null;
+        }
+
+        // string line = monologueLine.GetParsedText();
+
+        string lineCleaned = line;
+        lineCleaned = lineCleaned.Replace("[s]", string.Empty);
+        lineCleaned = lineCleaned.Replace("[/s]", string.Empty);
+        monologueLine.text = lineCleaned;
+
+        int start = line.IndexOf('<');
+        int end = line.IndexOf('>');
+        while (start != -1 && end != -1)
+        {
+            line = line.Remove(start, end - start + 1);
+            start = line.IndexOf('<');
+            end = line.IndexOf('>');
+        }
+
+        animator = new DOTweenTMPAnimator(monologueLine);
+
+        start = line.IndexOf("[s]");
+        end = line.IndexOf("[/s]");
+        if(start != -1 && end != -1)
+        {
+            line = line.Remove(end, 4);
+            line = line.Remove(start, 3);
+            end -= 4;
+            for (int i = start; i <= end; i++)
+            {
+                if (!animator.textInfo.characterInfo[i].isVisible)
+                {
+                    continue;
+                }
+                Tween t = animator.DOOffsetChar(i, Vector3.up * 10f, 0.3f).SetDelay(0.1f * (i - start)).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+                characterTweenList.Add(t);
+            }
         }
     }
 }

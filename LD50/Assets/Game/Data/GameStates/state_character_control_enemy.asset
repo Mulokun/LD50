@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18b161c99f746cf43bb17223a1df2d5c, type: 3}
-  m_Name: state_character_control
+  m_Name: state_character_control_enemy
   m_EditorClassIdentifier: 
-  timeOverNextState: {fileID: 11400000, guid: ed1475a1bc0eff140b05fec992faff97, type: 2}
-  DeathNextState: {fileID: 11400000, guid: ed1475a1bc0eff140b05fec992faff97, type: 2}
-  RoundData: {fileID: 11400000, guid: 0a844e07c37612448b10a8407c5e33a7, type: 2}
+  timeOverNextState: {fileID: 11400000, guid: 5a1d4338017d1ca43901c6b79e5d3dcb, type: 2}
+  DeathNextState: {fileID: 11400000, guid: 5a1d4338017d1ca43901c6b79e5d3dcb, type: 2}
+  RoundData: {fileID: 11400000, guid: d6df04ae0d5cca446b27db54876c99c3, type: 2}

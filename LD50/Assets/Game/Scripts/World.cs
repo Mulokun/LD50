@@ -8,6 +8,7 @@ public class World : MonoBehaviour
     [SerializeField] private Camera currentCamera;
     [SerializeField] private WorldCell cellPrefab;
     [SerializeField] private Vector2 worldSize;
+    public Vector2 Size => worldSize;
     [Title("Colliders")]
     [SerializeField] private BoxCollider upCollider;
     [SerializeField] private BoxCollider downCollider;
@@ -17,9 +18,11 @@ public class World : MonoBehaviour
     private List<WorldCell> cellList = new List<WorldCell>();
     public List<WorldCell> CellList => cellList;
 
+    public float OrthographicSize => Mathf.FloorToInt(worldSize.y * 0.5f);
+
     private void Awake()
     {
-        currentCamera.orthographicSize = Mathf.FloorToInt(worldSize.y * 0.5f);
+        currentCamera.orthographicSize = OrthographicSize;
 
         for (int x = 0; x < worldSize.x; x++)
         {

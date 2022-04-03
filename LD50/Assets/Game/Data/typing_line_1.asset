@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc37552d091d23d4fb734d72943c4e67, type: 3}
   m_Name: typing_line_1
   m_EditorClassIdentifier: 
+  LineInfos: []
   Lines:
-  - 'public class CharacterMovement : MonoBehaviour {'
+  - public class CharacterMovement
   - '[SerializeField, Range(3, 30)] private float speed;'
-  - '[SerializeField, Range(0.01f, 0.5f)] private float acceleration;'
-  - mesh = GetComponentInChildren<MeshRenderer>();
   - actionUp.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Up,
     true);
   - actionDown.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Down,
@@ -25,6 +24,4 @@ MonoBehaviour:
     true);
   - actionRight.started += (InputAction.CallbackContext _) => RequestMovement(Direction.Right,
     true);
-  - Vector3 movement = Vector3.Normalize(new Vector3(requestedMovement.x, 0, requestedMovement.y))
-    * speed * Time.deltaTime;
   - currentRigidbody.position = (transform.position + currentMovement);

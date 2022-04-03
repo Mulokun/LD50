@@ -15,4 +15,5 @@ MonoBehaviour:
   nextState: {fileID: 11400000, guid: 5bc850f31335ace4ca972cbf14e1465d, type: 2}
   ZoomValue: 1.6
   ZoomInDuration: 1
+  ZoomToDefault: 1
   ZoomOutDuration: 1

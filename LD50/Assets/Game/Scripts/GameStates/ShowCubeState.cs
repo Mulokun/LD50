@@ -10,8 +10,8 @@ public class ShowCubeState : GameState
     public GameState nextState;
     [Range(1, 10)] public float ZoomValue;
     [Range(0.1f, 2f)] public float ZoomInDuration;
+    public bool ZoomToDefault;
     [Range(0.1f, 2f)] public float ZoomOutDuration;
-    private float baseOthoSize = 0;
     private Tween rotationTween;
 
     private GameContext context;
@@ -20,7 +20,6 @@ public class ShowCubeState : GameState
     {
         context = c;
 
-        baseOthoSize = context.MainCamera.orthographicSize;
         context.MainCamera.DOOrthoSize(ZoomValue, ZoomInDuration).SetEase(Ease.OutCirc);
 
         rotationTween = context.GameSystem.CharacterMovement.transform.DOLocalRotate(context.GameSystem.CharacterMovement.transform.rotation.eulerAngles + Vector3.up, 0.1f).SetLoops(-1, LoopType.Incremental);
@@ -46,8 +45,10 @@ public class ShowCubeState : GameState
         rotationTween.Kill(false);
         context.GameSystem.CharacterMovement.transform.DOLocalRotateQuaternion(Quaternion.identity, ZoomOutDuration);
 
-        context.MainCamera.DOOrthoSize(baseOthoSize, ZoomOutDuration).SetEase(Ease.InQuart);
-
-        yield return new WaitForSeconds(ZoomOutDuration);
+        if (ZoomToDefault)
+        {
+            context.MainCamera.DOOrthoSize(context.GameSystem.World.OrthographicSize, ZoomOutDuration).SetEase(Ease.InQuart);
+            yield return new WaitForSeconds(ZoomOutDuration);
+        }
     }
 }

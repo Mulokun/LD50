@@ -11,7 +11,7 @@ public class Typing : MonoBehaviour
 {
     [SerializeField] private InputActionAsset inputAsset;
     [SerializeField] private TMP_Text lineToType;
-    [SerializeField] private LinesData lines;
+    private LinesData lines;
     [SerializeField] private GameObject enterObject;
     [SerializeField] private RectTransform caret;
     [SerializeField] private Image progress;
@@ -55,6 +55,7 @@ public class Typing : MonoBehaviour
         enterObject.SetActive(false);
         caret.gameObject.SetActive(false);
 
+        lines = l;
         progress.fillAmount = 0;
         lines.Reset();
         SetNewLine();
