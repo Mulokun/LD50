@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b161c99f746cf43bb17223a1df2d5c, type: 3}
   m_Name: state_character_control
   m_EditorClassIdentifier: 
-  nextState: {fileID: 11400000, guid: ed1475a1bc0eff140b05fec992faff97, type: 2}
-  Duration: 300
+  timeOverNextState: {fileID: 11400000, guid: ed1475a1bc0eff140b05fec992faff97, type: 2}
+  DeathNextState: {fileID: 11400000, guid: ed1475a1bc0eff140b05fec992faff97, type: 2}
+  RoundData: {fileID: 11400000, guid: d6df04ae0d5cca446b27db54876c99c3, type: 2}

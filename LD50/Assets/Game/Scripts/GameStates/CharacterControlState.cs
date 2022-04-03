@@ -7,10 +7,12 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(fileName = "new_state_character_control", menuName = "Game State/New State : Character Control", order = 0)]
 public class CharacterControlState : GameState
 {
-    public GameState nextState;
+    public GameState timeOverNextState;
+    public GameState DeathNextState;
 
-    [Range(0, 300)] public int Duration;
+    public GameRoundData RoundData;
     private float elaspedTime;
+    private Sequence spawnSequence;
 
     private GameContext context;
 
@@ -21,22 +23,43 @@ public class CharacterControlState : GameState
         context.GameSystem.SetTimerActive(true);
         elaspedTime = 0;
 
+        context.GameSystem.CharacterHealth.OnDeathTrigger += OnDeath;
+
         yield return null;
+
+        StartSpawnSequence();
     }
 
     public override void Update()
     {
-        context.GameSystem.UpdateTimerText(Mathf.Max(0f, Duration - elaspedTime));
+        context.GameSystem.UpdateTimerText(Mathf.Max(0f, RoundData.Duration - elaspedTime));
 
         elaspedTime += Time.deltaTime;
-        if (elaspedTime > Duration)
+        if (elaspedTime > RoundData.Duration)
         {
-            context.GameFlow.SwitchState(this, nextState);
+            context.GameFlow.SwitchState(this, timeOverNextState);
         }
+    }
+
+    private void OnDeath()
+    {
+        context.GameSystem.CharacterHealth.OnDeathTrigger -= OnDeath;
+        context.GameFlow.SwitchState(this, DeathNextState);
+    }
+
+    private void StartSpawnSequence()
+    {
+        spawnSequence = DOTween.Sequence();
+        foreach(GameRoundData.EffectSpawner s in RoundData.Spawner)
+        {
+            spawnSequence.InsertCallback(s.Time, () => context.GameSystem.EffectSystem.CreateEffect(s.Effect));
+        }
+        spawnSequence.Play();
     }
 
     public override IEnumerator Coroutine_Exit()
     {
+        spawnSequence?.Kill();
         context.GameSystem.SetMovementActive(false);
         context.GameSystem.SetTimerActive(false);
 

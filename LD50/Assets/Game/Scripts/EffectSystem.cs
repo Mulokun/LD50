@@ -9,11 +9,6 @@ public class EffectSystem : MonoBehaviour
 
     private List<EffectHandle> effectList = new List<EffectHandle>();
 
-    private void Awake()
-    {
-        CreateEffect(effectTest);
-    }
-
     public void CreateEffect(EffectData data)
     {
         EffectHandle effect = new EffectHandle(data, gameSystem);
@@ -25,6 +20,17 @@ public class EffectSystem : MonoBehaviour
         foreach (EffectHandle e in effectList)
         {
             e.Update();
+        }
+
+        int i = 0;
+        while (i < effectList.Count)
+        {
+            if (effectList[i].IsKilled)
+            {
+                effectList.RemoveAt(i);
+                continue;
+            }
+            i++;
         }
     }
 }

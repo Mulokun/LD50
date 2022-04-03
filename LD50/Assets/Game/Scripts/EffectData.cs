@@ -14,8 +14,8 @@ public class EffectData : ScriptableObject
     [MinMaxSlider(0.05f, 3f)] public Vector2 VariationSpeed;
     public float RandomizedVariationSpeed => Random.Range(VariationSpeed.x, VariationSpeed.y);
     [Range(0, 3)] public float PersistantDuration;
+    [Range(0, 120)] public float DurationBeforeKill;
     [Range(0, 10)] public float SpeedMovement;
-
 
     public bool IsTrigger(Vector2 effectPosition, Vector2 cellPosition)
     {

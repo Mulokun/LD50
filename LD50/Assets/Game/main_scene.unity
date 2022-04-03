@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   context: {fileID: 688245849}
-  firstGameState: {fileID: 11400000, guid: fcbf5a54ab64cf5469d605b4fa2efd2c, type: 2}
+  firstGameState: {fileID: 11400000, guid: 243fc308763107e44811800f7e496791, type: 2}
 --- !u!4 &379293711
 Transform:
   m_ObjectHideFlags: 0
@@ -1064,7 +1064,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 1983727130}
+  effectSystem: {fileID: 532443264}
   characterMovement: {fileID: 1043906225}
+  characterHealth: {fileID: 1672292007}
   timerText: {fileID: 582314100}
 --- !u!4 &1143519056
 Transform:
@@ -1221,6 +1223,17 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 782e2da6cb0f05a4b9af9111030f9d69, type: 2}
+--- !u!114 &1672292007 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6135843156463929921, guid: 3dbb43fdeaa3ba2429cb42a2f9493879, type: 3}
+  m_PrefabInstance: {fileID: 3325129899270691704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4043ddbe8c08eaf409634661e80e8ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1740449871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1706,11 +1719,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5758551441541841571, guid: fdf45b3598557e542b3fd8ffb34ae518, type: 3}
       propertyPath: worldSize.x
-      value: 61
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 5758551441541841571, guid: fdf45b3598557e542b3fd8ffb34ae518, type: 3}
       propertyPath: worldSize.y
-      value: 61
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 5758551441541841571, guid: fdf45b3598557e542b3fd8ffb34ae518, type: 3}
       propertyPath: currentCamera
