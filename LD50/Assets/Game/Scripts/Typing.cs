@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using Sirenix.OdinInspector;
 using DG.Tweening;
 
 public class Typing : MonoBehaviour
@@ -19,6 +20,12 @@ public class Typing : MonoBehaviour
     private int currentVisibleCharacter = 0;
     private InputAction actionTyping;
     private InputAction actionEnter;
+
+    [Title("Sound")]
+    [SerializeField] private SoundData keySounds;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField, Range(0.02f, 0.1f)] private float audioDelay;
+    private float nextSoundTime = 0;
 
     private RectTransform rect;
     private Sequence validationSequence;
@@ -94,11 +101,11 @@ public class Typing : MonoBehaviour
 
     private void ValidateLine(InputAction.CallbackContext context)
     {
+        enterObject.SetActive(false);
         SetNewLine();
 
         actionTyping.Enable();
         actionEnter.Disable();
-        enterObject.SetActive(false);
     }
 
     private void TypeCharacter(InputAction.CallbackContext context)
@@ -108,6 +115,7 @@ public class Typing : MonoBehaviour
         {
             lineToType.maxVisibleCharacters = currentVisibleCharacter;
             CaretUpdate();
+            PlaySound();
         }
         else
         {
@@ -149,13 +157,22 @@ public class Typing : MonoBehaviour
     {
         validationSequence = DOTween.Sequence();
         validationSequence.AppendCallback(() => lineToType.text = string.Empty);
-        validationSequence.AppendCallback(() => enterObject.SetActive(false));
         validationSequence.AppendCallback(() => caret.gameObject.SetActive(false));
         validationSequence.Append(progress.DOFillAmount(1f, 0.3f).SetEase(Ease.OutQuad));
+        validationSequence.AppendCallback(() => enterObject.SetActive(false));
         validationSequence.AppendCallback(() => validateText.gameObject.SetActive(true));
         validationSequence.AppendInterval(1f);
         validationSequence.AppendCallback(() => validateText.gameObject.SetActive(false));
         validationSequence.Append(rect.DOAnchorMin(new Vector2(0.1f, 0.7f), 0.3f).SetEase(Ease.OutQuad));
         validationSequence.AppendCallback(() => OnCompleteTrigger?.Invoke());
+    }
+
+    private void PlaySound()
+    {
+        if(nextSoundTime <= Time.time)
+        {
+            audioSource.PlayOneShot(keySounds.GetRandom(), 0.6f);
+            nextSoundTime = Time.time + audioDelay;
+        }
     }
 }

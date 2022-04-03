@@ -15,7 +15,7 @@ public class Monologue : MonoBehaviour
     private LinesData lines;
 
     [Title("Sounds")]
-    [SerializeField] private SyllableSoundData syllableSound;
+    [SerializeField] private SoundData syllableSound;
     [SerializeField] private AudioSource audioSource;
 
     private Tween displayCharacterTween;
